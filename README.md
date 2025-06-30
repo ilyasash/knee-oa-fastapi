@@ -54,7 +54,7 @@ sudo apt-get install -y ffmpeg libsm6 libxext6
    cd ~/opt
    ```
 
-2. Klon repositori:
+2. Clone repositori:
    ```bash
    git clone https://huggingface.co/spaces/ilyasash/kneeOA-Prediction
    cd kneeOA-Prediction
