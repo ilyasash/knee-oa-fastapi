@@ -145,13 +145,13 @@ def create_heatmap_legend():
 def predict_and_explain(image):
     try:
         if image is None: raise ValueError("Silakan unggah gambar atau gunakan kamera terlebih dahulu.")
-        time.sleep(1) 
+        time.sleep(1)
         img = np.array(image)
         if len(img.shape) == 3 and img.shape[-1] == 3: img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         img = cv2.resize(img, (200, 200)) / 255.0
         img_3ch_normalized = to_rgb(img)
         img_display = inverse_preprocess_for_display(img_3ch_normalized)
-        
+
         heatmaps, probs_all_models = [], []
         for model_name in ['resnet50', 'vgg19', 'densenet121']:
             model = trained_models[model_name]
@@ -174,7 +174,7 @@ def predict_and_explain(image):
 
         # PERUBAHAN: Mengembalikan update untuk menyembunyikan teks format
         return (
-            gr.Image(value=image, interactive=False, label=""), 
+            gr.Image(value=image, interactive=False, label=""),
             *imgs_out, resnet_xai, vgg19_xai, densenet_xai, ensemble_xai,
             *conf_texts, ensemble_result,
             gr.Column(visible=True), gr.Row(visible=False), gr.Row(visible=True),
@@ -217,7 +217,7 @@ custom_css = """
 
 with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue"), css=custom_css, title="Diagnosis Knee Osteoarthritis") as demo:
     loading_indicator = gr.HTML("""<div id="loading-indicator"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>""", visible=False)
-    
+
     gr.Markdown("# Diagnosis Knee Osteoarthritis dengan Deep Learning dan XAI")
     gr.Markdown("Unggah gambar X-ray lutut atau gunakan kamera untuk mendapatkan prediksi tingkat keparahan Osteoarthritis beserta penjelasan visual (XAI).")
 
@@ -227,15 +227,15 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue"), css=custom_css, title="
                 input_image = gr.Image(type="pil", label="Unggah, Kamera, atau Tempel Gambar", sources=["upload", "webcam", "clipboard"], height=400)
                 # PERUBAHAN: Teks diformat di tengah dan diberi variabel `supported_formats_text`
                 supported_formats_text = gr.Markdown("<div style='text-align: center;'><i>Format yang didukung: PNG, JPG, JPEG, WEBP</i></div>")
-            
+
             with gr.Row() as initial_buttons:
                 predict_btn = gr.Button("Submit", variant="primary", scale=2)
                 clear_btn = gr.Button("Clear", variant="secondary", scale=1, elem_id="clear-btn")
-            
+
             with gr.Row(visible=False) as after_analysis_buttons:
                 upload_new_btn = gr.Button("Upload Gambar Baru", variant="primary", scale=2)
                 re_predict_btn = gr.Button("Analisis Ulang", variant="secondary", scale=2, elem_id="re-predict-btn")
-            
+
             with gr.Group():
                 interpretation_text = gr.HTML(value=create_about_app_info())
 
@@ -294,15 +294,15 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue"), css=custom_css, title="
     def clear_func():
         # PERUBAHAN: Mengembalikan update untuk semua komponen yang relevan, termasuk menampilkan kembali teks format
         return (
-            gr.Image(value=None, interactive=True, label="Unggah, Kamera, atau Tempel Gambar"), 
-            gr.Column(visible=False), 
-            gr.Row(visible=True), 
-            gr.Row(visible=False), 
+            gr.Image(value=None, interactive=True, label="Unggah, Kamera, atau Tempel Gambar"),
+            gr.Column(visible=False),
+            gr.Row(visible=True),
+            gr.Row(visible=False),
             gr.HTML(visible=False),
             gr.HTML(value=create_about_app_info()), # Kembalikan ke info awal
             gr.Markdown(visible=True) # Tampilkan kembali teks format
         )
-    
+
     # PERUBAHAN: Menambahkan 'supported_formats_text' ke daftar output untuk tombol clear/upload baru
     clear_outputs = [input_image, results_col, initial_buttons, after_analysis_buttons, loading_indicator, interpretation_text, supported_formats_text]
     clear_btn.click(fn=clear_func, inputs=None, outputs=clear_outputs)
