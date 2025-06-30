@@ -1,9 +1,5 @@
-fastapi
-uvicorn[standard]
+gradio
 tensorflow
-numpy
-opencv-python-headless
-python-multipart
+opencv-python
 Pillow
-huggingface-hub
-
+numpy
