@@ -56,7 +56,7 @@ sudo apt-get install -y ffmpeg libsm6 libxext6
 
 2. Clone repositori:
    ```bash
-   git clone https://huggingface.co/spaces/ilyasash/kneeOA-Prediction
+   git clone https://github.com/ilyasash/knee-oa-fastapi.git
    cd kneeOA-Prediction
    ```
 
