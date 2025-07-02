@@ -1,5 +1,5 @@
 gradio
-tensorflow
+tensorflow==2.18.0
 opencv-python
 Pillow
 numpy
