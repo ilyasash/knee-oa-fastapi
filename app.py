@@ -1,7 +1,3 @@
-# ==============================================================================
-# KODE GRADIO DENGAN INTERPRETASI DINAMIS
-# ==============================================================================
-
 import gradio as gr
 import numpy as np
 import cv2
@@ -311,4 +307,5 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue"), css=custom_css, title="
 
 # 7. MENJALANKAN APLIKASI
 if __name__ == '__main__':
-    demo.launch(share=True, debug=True)
+    demo.launch(share=True, debug=True, server_name="0.0.0.0", server_port=7860)
+    
